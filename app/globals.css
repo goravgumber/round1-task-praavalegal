@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+/* ── Tell Tailwind v4 to use class-based dark mode ── */
+@variant dark (&:where(.dark, .dark *));
+
+/* ── Float animation — respects per-card --rotation CSS var ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(var(--rotation, 0deg)); }
+  50%       { transform: translateY(-10px) rotate(var(--rotation, 0deg)); }
+}
+
+/* ── Fade-in + slide-up on page load ── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px) rotate(var(--rotation, 0deg));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px) rotate(var(--rotation, 0deg));
+  }
+}
+
+/* Applied to every FloatingCard */
+.card-float {
+  opacity: 0;
+  animation:
+    fadeInUp 0.6s ease forwards,
+    float 3.5s ease-in-out infinite;
+  animation-delay: var(--delay, 0s), calc(var(--delay, 0s) + 0.6s);
+}
